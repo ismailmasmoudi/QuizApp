@@ -1,0 +1,90 @@
+body {
+    background-color: rgba(253, 218, 246, 0.507) !important;
+
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.next-icon {
+    height: 60px;
+    width: 60px;
+}
+
+.quiz-card {
+    width: 48em;
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.question-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-title {
+    margin-top: 1em;
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    text-align: center;
+
+}
+
+.pt-sans-bold {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.card-body {
+    width: 100%;
+}
+
+.card-container {
+    display: flex;
+
+}
+
+.nav-modules-left {
+    display: flex;
+    justify-content: center;
+    width: 7em;
+    padding: 8px;
+    padding-bottom: 10em;
+}
+
+.button-color {
+    background-color: BLUE !important;
+    border: none !important;
+    color: rgba(255, 255, 255, 0.288) !important;
+    font-size: 24px !important;
+}
+
+.button:hover {
+color: white;
+}
+.card {
+    text-align: center;
+    --bs-card-border-radius: none !important;
+    --bs-card-spacer-y: 1rem !important;
+    --bs-card-spacer-x: 5rem !important;
+    --bs-card-title-spacer-y: 1.5rem !important;
+
+}
+.html-button {
+    color: white !important;
+    border-left: solid 5px white !important;
+}
+
+.padding-big {
+    padding: 16px;
+
+}
