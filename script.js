@@ -41,13 +41,14 @@ let questions = [
     }
 ];
 
+
 currentQuestion = 0;
 function renderQuestions() {
     let questionText = document.getElementById("question");
-    let answerTextA = document.getElementById("answer-a");
-    let answerTextB = document.getElementById("answer-b");
-    let answerTextC = document.getElementById("answer-c");
-    let answerTextD = document.getElementById("answer-d");
+    let answerTextA = document.getElementById("answer-1");
+    let answerTextB = document.getElementById("answer-2");
+    let answerTextC = document.getElementById("answer-3");
+    let answerTextD = document.getElementById("answer-4");
 
     const question = questions[currentQuestion]["question"];
     const answerA = questions[currentQuestion]["answer_1"];
@@ -60,38 +61,115 @@ function renderQuestions() {
     answerTextB.innerHTML = `${answerb}`;
     answerTextC.innerHTML = `${answerc}`;
     answerTextD.innerHTML = `${answerd}`;
-
+    // displaysButton(currentQuestion);
 }
 
-function nextQuestion() {
+
+function nextQuestion(currentQuestion) {
     let nextQuestion = currentQuestion + 1;
-    let actuelWidth = 10 ;
-    let ProcentWidth = actuelWidth +25 ;
-    actuelWidth = ProcentWidth ;
-    let progressBar = document.getElementById("progress-bar");
-    progressBar.style = `width: ${actuelWidth}% ` ;
-    if (currentQuestion = questions.length) {
-        actuelWidth = 100 ;
-        let cardBody = document.getElementById("card-body") ;
-        cardBody.innerHTML=/*html*/`
-            <div class="congratulation">
-                <img src="" alt="">
-            </div>
-        `
-
-    } else {
-        currentQuestion = nextQuestion;
-    }
-    renderQuestions();
+    currentQuestion = nextQuestion;
+    renderQuestions(currentQuestion);
 }
+
+
+function replay() {
+    currentQuestion = 0;
+    renderQuestions(currentQuestion);
+}
+
 
 function lastQuestion() {
     let lastQuestion = currentQuestion - 1;
+    currentQuestion = lastQuestion;
+    renderQuestions(currentQuestion);
+}
+
+function displaysButton(currentQuestion) {
+    // let nextIcon = document.getElementById("next-question") ;
+    let lastIcon = document.getElementById("last-question");
+    let progressBar = document.getElementById("progress-bar");
+
+    if (currentQuestion === questions.length + 1) {
+        let cardBody = document.getElementById("card-body");
+        cardBody.innerHTML =/*html*/`
+            <div class="congratulation">
+                <img class="congrat-image mb-4" src="/img/logo-congrat.png" alt="">
+                <p class="rubik-bold"> COMPLETE <br> HTML QUIZ </p>
+                <div class="score mb-4">
+                    <p class ="blue-color rubik-bold" >YOUR SCORE </p>
+                    <p class="rubik-bold" > 10/10 </p>
+                </div>
+                <button type="button " class="btn btn-danger mb-3 btn-danger-orange">Share</button>
+
+                <a onclick="replay(${currentQuestion})" class="replay">Replay </a>
+            </div>
+        `
+    }
     if (currentQuestion = 0) {
+        lastIcon.classList.add("d-none");
+        progressBar.innerHTML = /*html*/`
+            <div class="progress mt-4 mb-2">
+                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%"
+                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+        `
+    }
+    else{
+        lastIcon.classList.remove("d-none");
+    }
+    if (currentQuestion = 1) {
+        lastIcon.classList.add("d-none");
+        progressBar.innerHTML = /*html*/`
+            <div class="progress">
+        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+        `
+    }
+    if (currentQuestion = 2) {
+        lastIcon.classList.add("d-none");
+        progressBar.innerHTML = /*html*/`
+            <div class="progress">
+  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+        `
+    }
+    if (currentQuestion = 3) {
+        lastIcon.classList.add("d-none");
+        progressBar.innerHTML = /*html*/`
+            <div class="progress">
+  <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+        `
+    }
+    if (currentQuestion = 4) {
+        lastIcon.classList.add("d-none");
+        progressBar.innerHTML = /*html*/`
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+        `
+    }
+
+
+
+
+}
+
+function answer(selection) {
+    let answer = document.getElementById(selection);
+    let selectionAnswerNumber = selection.slice(-1);
+    let rightAnswer = questions[currentQuestion]['right_answer'];
+    let idOfRightElement = `answer-${rightAnswer}`;
+    let nextIcon = document.getElementById("next-question");
+    nextIcon.classList.add("d-none");
+    if (selectionAnswerNumber == rightAnswer) {
+        answer.parentNode.classList.add('bg-success');
+        nextIcon.classList.remove("d-none");
 
     }
     else {
-        currentQuestion = lastQuestion;
+        answer.parentNode.classList.add('bg-danger');
+        document.getElementById(idOfRightElement).parentNode.classList.add('bg-success');
     }
-    renderQuestions();
+    
 }
