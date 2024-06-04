@@ -28,19 +28,45 @@
     </nav>
     <div class="container">
         <div class="card-container">
-            <div class="card  nav-modules-left border-radius " style="
+            <div  class="card  nav-modules-left border-radius " style="
             background-color: blue;
         ">
                 <img src="/img/logo 2.png" class="card-img-top mb-4" alt="...">
                 <div class="btn-group btn-group-vertical  " role="group" aria-label="Basic example">
-                    <button type="button " class="btn btn-primary button-color mb-2 html-button">HTML</button>
-                    <button type="button " class="btn btn-primary button-color mb-2">CSS</button>
-                    <button type="button " class="btn btn-primary button-color mb-2">JS</button>
+                    <button onclick="renderQuestions()" type="button " class="btn btn-primary button-color mb-2 html-button">HTML</button>
+                    <button onclick="alertNotnow ()" type="button " class="btn btn-primary button-color mb-2">CSS</button>
+                    <button onclick="alertNotnow ()" type="button " class="btn btn-primary button-color mb-2">JS</button>
                 </div>
 
             </div>
 
             <div class="card  quiz-card">
+
+
+                <div class="card-body quiz-card" id="start-page">
+                <img class="bg-welcome" src="/img/bg b.png" alt="">
+                <div class="welcome ">
+                    <p>Welcome to <br>The Awesome HTML Quiz</p>
+                    <button type="button " onclick="renderQuestions()" class="btn btn-danger mb-3 btn-danger-orange start-button ">START</button>
+                </div>
+
+                </div>
+
+                <div class="card-body quiz-card " id="congrat-page" >
+                    <div class="congratulation">
+                        <img class="congrat-image mb-4" src="/img/logo-congrat.png" alt="">
+                        <p class="rubik-bold"> COMPLETE <br> HTML QUIZ </p>
+                        <div class="score mb-4">
+                            <p class ="blue-color rubik-bold" >YOUR SCORE </p>
+                            <p class="rubik-bold" id="result"> 10/10 </p>
+                        </div>
+                        <button type="button " class="btn btn-danger mb-3 btn-danger-orange">Share</button>
+            
+                        <a onclick="replay()" class="replay">Replay </a>
+                    </div>
+
+                </div>
+
                 <div class="card-body quiz-card" id="card-body">
                     <h5 class="card-title" id="question">Frage :</h5>
 
@@ -69,19 +95,20 @@
                         </div>
                     </div>
 
-                    <div class="question-footer ">
-                        <a href=""> <img class="next-icon" id="last-question" onclick="lastQuestion()"
-                                src="img/icon-last.png" ></a>
-                        <a href=""> <img class="next-icon" id="next-question"  onclick="nextQuestion()"
-                                src="img/icon-next.png" ></a>
+                    <div class="question-footer " id="question-footer">
+                         <img onclick="lastQuestion()" class="next-icon" id="last-question"
+                                src="img/icon-last.png" >
+                         <img onclick="nextQuestion()" class="next-icon" id="next-question"
+                                src="img/icon-next.png">
                     </div>
                     <div id="progress-bar">
-                        <div class="progress mt-4 mb-2">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%"
-                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-animated progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+                          </div>
                     </div>
                 </div>
+
+
             </div>
         </div>
     </div>

@@ -8,7 +8,7 @@ let questions = [
         "right_answer": 1
     },
     {
-        'question': '2. Which one is the correct sequence of HTML tags:?',
+        'question': '2. Which one is the correct sequence of HTML tags:',
         'answer_1': 'A / head, body, title, html',
         'answer_2': 'B / html, head, title, body',
         'answer_3': 'C / html, title, head, body',
@@ -17,50 +17,136 @@ let questions = [
     },
     {
         'question': '3. Which tag is used to make the underlined text?',
-        'answer_1': 'A / <b> ',
-        'answer_2': 'B / <ul> ',
-        'answer_3': 'C / <u> ',
-        'answer_4': 'D / <line> ',
+        'answer_1': 'A / < b > ',
+        'answer_2': 'B / < ul > ',
+        'answer_3': 'C / < u > ',
+        'answer_4': 'D / < line > ',
         "right_answer": 3
     },
     {
         'question': '4. How to create a checkbox in HTML?',
-        'answer_1': 'A / <input type = "checkbox">',
-        'answer_2': 'B / <input type = "button">',
-        'answer_3': 'C / <checkbox>',
-        'answer_4': 'D / <input type = "check">',
+        'answer_1': 'A / < input type = "checkbox" >',
+        'answer_2': 'B / < input type = "button" >',
+        'answer_3': 'C / < checkbox  >',
+        'answer_4': 'D / < input type = "check" >',
         "right_answer": 1
     },
     {
         'question': '5. Which HTML tag is used to make the text bold in HTML?',
-        'answer_1': 'A / <pre>',
-        'answer_2': 'B / <br>',
-        'answer_3': 'C / <b>',
-        'answer_4': 'D /  None',
+        'answer_1': 'A / < pre >',
+        'answer_2': 'B / < br >',
+        'answer_3': 'C / < b >',
+        'answer_4': 'D / None',
+        "right_answer": 3
+    },
+    {
+        'question': '6. Correct syntax to include external CSS in HTML?',
+        'answer_1': 'A / < link href="style.css" >',
+        'answer_2': 'B / < link rel="sheet" href="style.css" >',
+        'answer_3': 'C / < link rel="stylesheet" src="style.css" >',
+        'answer_4': 'D / < link rel="stylesheet" href="style.css" >',
+        "right_answer": 4
+    },
+    {
+        'question': '7. Which HTML tag attribute is used to provide a unique name to an element?',
+        'answer_1': 'A / class',
+        'answer_2': 'B / id ',
+        'answer_3': 'C / type',
+        'answer_4': 'D / All of the above',
+        "right_answer": 2
+    },
+    {
+        'question': '8. Which HTML tag is used to display the text with scrolling effect?',
+        'answer_1': 'A / < scroll >',
+        'answer_2': 'B / < run >',
+        'answer_3': 'C / < marquee >',
+        'answer_4': 'D / None',
+        "right_answer": 3
+    },
+    {
+        'question': '9. Correct way to send mail in HTML?',
+        'answer_1': 'A / < mail xy@y</mail >',
+        'answer_2': 'B / < a href = "xy@y" >',
+        'answer_3': 'C / < a href = "mailto: xyz@gmail.com" >',
+        'answer_4': 'D / None',
+        "right_answer": 3
+    },
+    {
+        'question': '10. Which HTML tag is used to insert the largest heading in HTML?',
+        'answer_1': 'A / < h6 >',
+        'answer_2': 'B / < h4 >',
+        'answer_3': 'C / < h1 >',
+        'answer_4': 'D / None',
         "right_answer": 3
     }
 ];
 let currentQuestion = 0;
+let NumberOfRightAnswers = 0;
+
+function displaysButtonNextLast() {
+    let nextIcon = document.getElementById("next-question"); //  button 'next' undisplays
+    nextIcon.classList.add("d-none");
+    let lastIcon = document.getElementById("last-question");
+    let QuestionFooter = document.getElementById("question-footer");
+    if (currentQuestion === 0) {
+        lastIcon.classList.add("d-none");
+        QuestionFooter.classList.add("right");
+    } else {
+        lastIcon.classList.remove("d-none");
+        QuestionFooter.classList.remove("right");
+    }
+}
+
+function displaysStartCongratPage() {
+
+}
+
+function progressBarAnimations () {
+    let progressBar = document.getElementById("progress-bar");
+    let widthPercent = (currentQuestion + 1) * 100 / questions.length;
+    progressBar.innerHTML = /*html*/`
+        <div class="progress mt-4 mb-2">
+        <div class="progress-bar progress-bar-animated progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="${widthPercent}" aria-valuemin="0" aria-valuemax="100" style="width: ${widthPercent}%"></div>
+         </div>
+         `;
+}
+
 
 function renderQuestions() {
-    let questionText = document.getElementById("question");
-    let answerTextA = document.getElementById("answer-1");
-    let answerTextB = document.getElementById("answer-2");
-    let answerTextC = document.getElementById("answer-3");
-    let answerTextD = document.getElementById("answer-4");
+    document.getElementById("congrat-page").classList.add("d-none");
+    document.getElementById("start-page").classList.add("d-none");
+    document.getElementById("card-body").classList.remove("d-none");
 
-    const question = questions[currentQuestion]["question"];
-    const answerA = questions[currentQuestion]["answer_1"];
-    const answerb = questions[currentQuestion]["answer_2"];
-    const answerc = questions[currentQuestion]["answer_3"];
-    const answerd = questions[currentQuestion]["answer_4"];
+    numberOfQuestion = questions.length;
+    document.getElementById("result").innerHTML = `${NumberOfRightAnswers} / ${numberOfQuestion}`;
+    displaysButtonNextLast();
+    if (currentQuestion >= questions.length) {
+        document.getElementById("congrat-page").classList.remove("d-none");
+        document.getElementById("card-body").classList.add("d-none");
+    }
 
-    questionText.innerHTML = `${question}`;
-    answerTextA.innerHTML = `${answerA}`;
-    answerTextB.innerHTML = `${answerb}`;
-    answerTextC.innerHTML = `${answerc}`;
-    answerTextD.innerHTML = `${answerd}`;
-    displaysButton();
+    else {
+        progressBarAnimations ()
+
+        let questionText = document.getElementById("question");
+        let answerTextA = document.getElementById("answer-1");
+        let answerTextB = document.getElementById("answer-2");
+        let answerTextC = document.getElementById("answer-3");
+        let answerTextD = document.getElementById("answer-4");
+
+        const question = questions[currentQuestion]["question"];
+        const answerA = questions[currentQuestion]["answer_1"];
+        const answerb = questions[currentQuestion]["answer_2"];
+        const answerc = questions[currentQuestion]["answer_3"];
+        const answerd = questions[currentQuestion]["answer_4"];
+
+        questionText.innerHTML = `${question}`;
+        answerTextA.innerHTML = `${answerA}`;
+        answerTextB.innerHTML = `${answerb}`;
+        answerTextC.innerHTML = `${answerc}`;
+        answerTextD.innerHTML = `${answerd}`;
+        // displaysButton();
+    }
 }
 
 
@@ -68,17 +154,9 @@ function nextQuestion() {
     currentQuestion++;
     renderQuestions();
     resetAnswerButtons();
-    let progressBar = document.getElementById("progress-bar");
-    let widthPercent = 0;
-    let progressPercent = widthPercent + 25;
-    widthPercent = progressPercent;
-    progressBar.innerHTML = /*html*/`
-    <div class="progress mt-4 mb-2">
-                    <div class="progress-bar progress-bar-striped" role="progressbar" style='width: ${widthPercent}%'
-                        aria-valuenow="${widthPercent}" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-`;
+
 }
+
 
 function resetAnswerButtons() {
     for (let i = 1; i < 5; i++) {
@@ -90,42 +168,17 @@ function resetAnswerButtons() {
 
 function replay() {
     currentQuestion = 0;
-    renderQuestions();
+    document.getElementById("congrat-page").classList.add("d-none");
+    document.getElementById("start-page").classList.remove("d-none");
+
 }
 
 
 function lastQuestion() {
     currentQuestion--;
+
     renderQuestions();
 }
-
-function displaysButton() {
-    // let nextIcon = document.getElementById("next-question") ;
-    let lastIcon = document.getElementById("last-question");
-    if (currentQuestion === questions.length + 1) {
-        let cardBody = document.getElementById("card-body");
-        cardBody.innerHTML =/*html*/`
-            <div class="congratulation">
-                <img class="congrat-image mb-4" src="/img/logo-congrat.png" alt="">
-                <p class="rubik-bold"> COMPLETE <br> HTML QUIZ </p>
-                <div class="score mb-4">
-                    <p class ="blue-color rubik-bold" >YOUR SCORE </p>
-                    <p class="rubik-bold" > 10/10 </p>
-                </div>
-                <button type="button " class="btn btn-danger mb-3 btn-danger-orange">Share</button>
-
-                <a onclick="replay(${currentQuestion})" class="replay">Replay </a>
-            </div>
-        `
-    }
-    if (currentQuestion = 0) {
-        lastIcon.classList.add("d-none");
-    }
-    else {
-        lastIcon.classList.remove("d-none");
-    }
-}
-
 
 function answer(selection) {
     let answer = document.getElementById(selection);
@@ -133,15 +186,17 @@ function answer(selection) {
     let rightAnswer = questions[currentQuestion]['right_answer'];
     let idOfRightElement = `answer-${rightAnswer}`;
     let nextIcon = document.getElementById("next-question");
-    nextIcon.classList.add("d-none");
+    nextIcon.classList.remove("d-none");
     if (selectionAnswerNumber == rightAnswer) {
         answer.parentNode.classList.add('bg-success');
-        nextIcon.classList.remove("d-none");
-
+        NumberOfRightAnswers++;
     }
     else {
         answer.parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightElement).parentNode.classList.add('bg-success');
     }
+}
 
+function alertNotnow() {
+    alert("it is not disponible right now .");
 }
