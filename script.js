@@ -40,9 +40,8 @@ let questions = [
         "right_answer": 3
     }
 ];
+let currentQuestion = 0;
 
-
-currentQuestion = 0;
 function renderQuestions() {
     let questionText = document.getElementById("question");
     let answerTextA = document.getElementById("answer-1");
@@ -61,34 +60,48 @@ function renderQuestions() {
     answerTextB.innerHTML = `${answerb}`;
     answerTextC.innerHTML = `${answerc}`;
     answerTextD.innerHTML = `${answerd}`;
-    // displaysButton(currentQuestion);
+    displaysButton();
 }
 
 
-function nextQuestion(currentQuestion) {
-    let nextQuestion = currentQuestion + 1;
-    currentQuestion = nextQuestion;
-    renderQuestions(currentQuestion);
+function nextQuestion() {
+    currentQuestion++;
+    renderQuestions();
+    resetAnswerButtons();
+    let progressBar = document.getElementById("progress-bar");
+    let widthPercent = 0;
+    let progressPercent = widthPercent + 25;
+    widthPercent = progressPercent;
+    progressBar.innerHTML = /*html*/`
+    <div class="progress mt-4 mb-2">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" style='width: ${widthPercent}%'
+                        aria-valuenow="${widthPercent}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+`;
+}
+
+function resetAnswerButtons() {
+    for (let i = 1; i < 5; i++) {
+        document.getElementById(`answer-${i}`).parentNode.classList.remove('bg-success');
+        document.getElementById(`answer-${i}`).parentNode.classList.remove('bg-danger');
+    }
 }
 
 
 function replay() {
     currentQuestion = 0;
-    renderQuestions(currentQuestion);
+    renderQuestions();
 }
 
 
 function lastQuestion() {
-    let lastQuestion = currentQuestion - 1;
-    currentQuestion = lastQuestion;
-    renderQuestions(currentQuestion);
+    currentQuestion--;
+    renderQuestions();
 }
 
-function displaysButton(currentQuestion) {
+function displaysButton() {
     // let nextIcon = document.getElementById("next-question") ;
     let lastIcon = document.getElementById("last-question");
-    let progressBar = document.getElementById("progress-bar");
-
     if (currentQuestion === questions.length + 1) {
         let cardBody = document.getElementById("card-body");
         cardBody.innerHTML =/*html*/`
@@ -107,53 +120,12 @@ function displaysButton(currentQuestion) {
     }
     if (currentQuestion = 0) {
         lastIcon.classList.add("d-none");
-        progressBar.innerHTML = /*html*/`
-            <div class="progress mt-4 mb-2">
-                            <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 10%"
-                                aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-        `
     }
-    else{
+    else {
         lastIcon.classList.remove("d-none");
     }
-    if (currentQuestion = 1) {
-        lastIcon.classList.add("d-none");
-        progressBar.innerHTML = /*html*/`
-            <div class="progress">
-        <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        `
-    }
-    if (currentQuestion = 2) {
-        lastIcon.classList.add("d-none");
-        progressBar.innerHTML = /*html*/`
-            <div class="progress">
-  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-        `
-    }
-    if (currentQuestion = 3) {
-        lastIcon.classList.add("d-none");
-        progressBar.innerHTML = /*html*/`
-            <div class="progress">
-  <div class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-        `
-    }
-    if (currentQuestion = 4) {
-        lastIcon.classList.add("d-none");
-        progressBar.innerHTML = /*html*/`
-<div class="progress">
-  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-        `
-    }
-
-
-
-
 }
+
 
 function answer(selection) {
     let answer = document.getElementById(selection);
@@ -171,5 +143,5 @@ function answer(selection) {
         answer.parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightElement).parentNode.classList.add('bg-success');
     }
-    
+
 }
