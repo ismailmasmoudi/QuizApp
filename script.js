@@ -80,8 +80,55 @@ let questions = [
         "right_answer": 3
     }
 ];
+
 let currentQuestion = 0;
 let NumberOfRightAnswers = 0;
+let AUDIO_CORRECT = new Audio('sounds/correct.mp3');
+let AUDIO_WRONG = new Audio('sounds/wrong.mp3');
+
+function renderQuestions() {
+    numberOfQuestion = questions.length;
+    document.getElementById("result").innerHTML = `${NumberOfRightAnswers} / ${numberOfQuestion}`;
+    displaysButtonNextLast();
+    if (currentQuestion >= questions.length) {
+        document.getElementById("congrat-page").classList.remove("d-none");
+        document.getElementById("card-body").classList.add("d-none");
+        document.getElementById("start-page").classList.add("d-none");
+    } else {
+        progressBarAnimations();
+        showQuestions();
+    }
+}
+
+
+function showQuestions() {
+    let questionText = document.getElementById("question");
+    let answerTextA = document.getElementById("answer-1");
+    let answerTextB = document.getElementById("answer-2");
+    let answerTextC = document.getElementById("answer-3");
+    let answerTextD = document.getElementById("answer-4");
+
+    const question = questions[currentQuestion]["question"];
+    const answerA = questions[currentQuestion]["answer_1"];
+    const answerb = questions[currentQuestion]["answer_2"];
+    const answerc = questions[currentQuestion]["answer_3"];
+    const answerd = questions[currentQuestion]["answer_4"];
+
+    questionText.innerHTML = `${question}`;
+    answerTextA.innerHTML = `${answerA}`;
+    answerTextB.innerHTML = `${answerb}`;
+    answerTextC.innerHTML = `${answerc}`;
+    answerTextD.innerHTML = `${answerd}`;
+}
+
+
+function startQuiz() {
+    document.getElementById("congrat-page").classList.add("d-none");
+    document.getElementById("start-page").classList.add("d-none");
+    document.getElementById("card-body").classList.remove("d-none");
+    renderQuestions();
+}
+
 
 function displaysButtonNextLast() {
     let nextIcon = document.getElementById("next-question"); //  button 'next' undisplays
@@ -97,11 +144,8 @@ function displaysButtonNextLast() {
     }
 }
 
-function displaysStartCongratPage() {
 
-}
-
-function progressBarAnimations () {
+function progressBarAnimations() {
     let progressBar = document.getElementById("progress-bar");
     let widthPercent = (currentQuestion + 1) * 100 / questions.length;
     progressBar.innerHTML = /*html*/`
@@ -111,42 +155,10 @@ function progressBarAnimations () {
          `;
 }
 
-
-function renderQuestions() {
+function startPage() {
     document.getElementById("congrat-page").classList.add("d-none");
-    document.getElementById("start-page").classList.add("d-none");
-    document.getElementById("card-body").classList.remove("d-none");
-
-    numberOfQuestion = questions.length;
-    document.getElementById("result").innerHTML = `${NumberOfRightAnswers} / ${numberOfQuestion}`;
-    displaysButtonNextLast();
-    if (currentQuestion >= questions.length) {
-        document.getElementById("congrat-page").classList.remove("d-none");
-        document.getElementById("card-body").classList.add("d-none");
-    }
-
-    else {
-        progressBarAnimations ()
-
-        let questionText = document.getElementById("question");
-        let answerTextA = document.getElementById("answer-1");
-        let answerTextB = document.getElementById("answer-2");
-        let answerTextC = document.getElementById("answer-3");
-        let answerTextD = document.getElementById("answer-4");
-
-        const question = questions[currentQuestion]["question"];
-        const answerA = questions[currentQuestion]["answer_1"];
-        const answerb = questions[currentQuestion]["answer_2"];
-        const answerc = questions[currentQuestion]["answer_3"];
-        const answerd = questions[currentQuestion]["answer_4"];
-
-        questionText.innerHTML = `${question}`;
-        answerTextA.innerHTML = `${answerA}`;
-        answerTextB.innerHTML = `${answerb}`;
-        answerTextC.innerHTML = `${answerc}`;
-        answerTextD.innerHTML = `${answerd}`;
-        // displaysButton();
-    }
+    document.getElementById("start-page").classList.remove("d-none");
+    document.getElementById("card-body").classList.add("d-none");
 }
 
 
@@ -154,7 +166,6 @@ function nextQuestion() {
     currentQuestion++;
     renderQuestions();
     resetAnswerButtons();
-
 }
 
 
@@ -168,17 +179,17 @@ function resetAnswerButtons() {
 
 function replay() {
     currentQuestion = 0;
+    NumberOfRightAnswers = 0;
     document.getElementById("congrat-page").classList.add("d-none");
     document.getElementById("start-page").classList.remove("d-none");
-
 }
 
 
 function lastQuestion() {
     currentQuestion--;
-
     renderQuestions();
 }
+
 
 function answer(selection) {
     let answer = document.getElementById(selection);
@@ -190,13 +201,16 @@ function answer(selection) {
     if (selectionAnswerNumber == rightAnswer) {
         answer.parentNode.classList.add('bg-success');
         NumberOfRightAnswers++;
+        AUDIO_CORRECT.play();
     }
     else {
         answer.parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightElement).parentNode.classList.add('bg-success');
+        AUDIO_WRONG.play();
     }
 }
 
+
 function alertNotnow() {
-    alert("it is not disponible right now .");
+    alert("it is not available right now .");
 }
